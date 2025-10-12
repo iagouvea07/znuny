@@ -2,6 +2,8 @@
 
 As Open Source contributor, I did my first kubernetes model for Znuny using Helm Charts.
 
+The Znuny version used for this repository is 7.0.19
+
 With this repository, you should able to deploy this application using
 
 - docker compose
