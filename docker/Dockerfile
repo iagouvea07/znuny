@@ -8,7 +8,7 @@ ARG BASEDIR_KERNEL=${BASEDIR}/Kernel
 
 EXPOSE 80
 
-COPY ./znuny ${BASEDIR}
+COPY ../znuny ${BASEDIR}
 WORKDIR ${BASEDIR}
 
 RUN apt update && \
@@ -22,14 +22,14 @@ RUN apt update && \
     libspreadsheet-xlsx-perl libauthen-sasl-perl libmail-imapclient-perl libarchive-zip-perl    \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./config/Config.pm Kernel/Config.pm 
-COPY ./znuny_daemon.conf ${BASEDIR_CRON}/znuny_daemon
+COPY ../config/Config.pm Kernel/Config.pm 
+COPY ../config/znuny_daemon.conf ${BASEDIR_CRON}/znuny_daemon
 
 RUN useradd -d ${BASEDIR} -g www-data -s /bin/bash znuny     
 RUN chown -R znuny:www-data ${BASEDIR} /usr/local/apache2   
 RUN crontab ${BASEDIR_CRON}/znuny_daemon 
 
-COPY ./config/httpd.conf /usr/local/apache2/conf/httpd.conf
-COPY ./config/znuny.conf /usr/local/apache2/conf/extra/znuny.conf
+COPY ../config/httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY ../config/znuny.conf /usr/local/apache2/conf/extra/znuny.conf
 
 CMD ["httpd-foreground"]

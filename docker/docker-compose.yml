@@ -1,0 +1,30 @@
+x-global-env: &env
+  MARIADB_HOST: "mariadb"
+  MARIADB_DATABASE: "znuny"
+  MARIADB_USER: "znuny"
+  MARIADB_PASSWORD: "12345"
+
+services:
+  znuny:
+    image: znuny:7
+    container_name: znuny
+    environment:
+      <<: *env
+    ports:
+      - "80:80"
+
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb
+    environment:
+      <<: *env
+      MARIADB_ROOT_PASSWORD: "12345"
+    volumes:
+      - /mnt/znuny/mariadb:/var/lib/mysql
+      - /mnt/znuny/article:/opt/znuny/var/article
+    command: 
+      - mysqld
+      - --max-allowed-packet=64MB
+      - --character-set-server=utf8
+      - --collation-server=utf8_general_ci
+      - --innodb-log-file-size=512MB

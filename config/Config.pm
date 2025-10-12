@@ -7,13 +7,13 @@ use utf8;
 sub Load {
     my $Self = shift;
 
-    $Self->{DatabaseHost} = ${ };
+    $Self->{DatabaseHost} = $ENV{MARIADB_HOST};
 
-    $Self->{Database} = 'znuny';
+    $Self->{Database} = $ENV{MARIADB_DATABASE};
 
-    $Self->{DatabaseUser} = 'znuny';
+    $Self->{DatabaseUser} = $ENV{MARIADB_USER};
 
-    $Self->{DatabasePw} = 'some-pass';
+    $Self->{DatabasePw} = $ENV{MARIADB_PASSWORD};
 
     $Self->{DatabaseDSN} = "DBI:mysql:database=$Self->{Database};host=$Self->{DatabaseHost};";
 
