@@ -32,3 +32,9 @@ persistentVolumeClaim:
     
   db:
     name: mariadb-storage
+
+ingress:
+  enable: true
+  name: znuny-ingress
+  host: znuny.local
+  ingressClass: nginx
