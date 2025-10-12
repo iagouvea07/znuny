@@ -11,7 +11,7 @@ EXPOSE 80
 COPY ../src ${BASEDIR}
 WORKDIR ${BASEDIR}
 
-RUN apt update && \
+RUN apt update &&                                                                               \
     apt -y install cron libapache2-mod-perl2 libdbd-mysql-perl libtimedate-perl                 \
     libnet-ldap-perl libio-socket-ssl-perl libpdf-api2-perl libyaml-libyaml-perl                \
     libsoap-lite-perl libtext-csv-xs-perl libjson-xs-perl libapache-dbi-perl                    \
