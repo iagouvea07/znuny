@@ -2,10 +2,11 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.persistentVolumeClaim.app.name }}
+  namespace: znuny
 spec:
-  storageClassName: nginx
+  storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
@@ -15,9 +16,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.persistentVolumeClaim.db.name }}
 spec:
-  storageClassName: nginx
+  storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi

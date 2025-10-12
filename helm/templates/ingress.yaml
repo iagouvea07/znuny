@@ -3,6 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.ingress.name }}
+  namespace: znuny
 spec:
   ingressClassName: {{ .Values.ingress.ingressClass }}
   rules:
@@ -14,5 +15,6 @@ spec:
         backend:
           service:
             name: {{ .Values.service.app.name }}
-            port: {{ .Values.service.app.port }}
+            port: 
+              number: {{ .Values.service.app.port }}
 {{- end }}

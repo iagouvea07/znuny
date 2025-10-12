@@ -1,14 +1,15 @@
 environment:
   MARIADB_DATABASE: znuny
   MARIADB_USER: znuny
+  MARIADB_HOST: znuny-db-svc.znuny.svc.cluster.local
 
 deployment:
   name: znuny-app
   replicas: 1
-  image: znuny:7
+  image: iagouvea/znuny:7
   port: 80
 
-statefulset:
+statefulSet:
   name: znuny-db
   replicas: 1
   image: mariadb:10.6
@@ -29,12 +30,14 @@ service:
 persistentVolumeClaim:
   app:
     name: znuny-articles
+    storageClass: persistent-storage
     
   db:
     name: mariadb-storage
+    storageClass: persistent-storage
 
 ingress:
-  enable: true
+  enabled: true
   name: znuny-ingress
   host: znuny.local
   ingressClass: nginx

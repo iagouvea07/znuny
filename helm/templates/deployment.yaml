@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.deployment.name }}
+  namespace: znuny
 spec:
   replicas: {{ .Values.deployment.replicas}}
   selector:
@@ -15,15 +16,15 @@ spec:
       volumes:
       - name: znuny-articles
         persistentVolumeClaim:
-          claimName: {{ .Values.persistentVolumeClaim.name }}
+          claimName: {{ .Values.persistentVolumeClaim.app.name }}
       containers:
       - name: {{ .Values.deployment.name }}
         image: {{ .Values.deployment.image }}
-        port:
+        ports:
         - containerPort: {{ .Values.deployment.port }}
         env:
         - name: MARIADB_HOST
-          value: {{ .Values.service.name }}
+          value: {{ .Values.environment.MARIADB_HOST}}
         - name: MARIADB_DATABASE
           value: {{ .Values.environment.MARIADB_DATABASE }}
         - name: MARIADB_USER
