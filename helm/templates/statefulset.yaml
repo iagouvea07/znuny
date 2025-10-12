@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.deployment.db.name }}
+spec:
+  replicas: {{ .Values.deployment.db.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.db.name }}
+  template: 
+    metadata:
+      labels:
+        app: {{ .Values.deployment.db.name }}
+    spec:
+      volumes:
+      - name: mariadb-storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistentVolumeClaim.db.name }}
+      containers:
+      - name: {{ .Values.deployment.db.name }}
+        image: {{ .Values.deployment.db.image }}
+        ports:
+        - containerPort: {{ .Values.deployment.db.port }}
+        command:
+        - mysqld
+        - --max-allowed-packet=64MB
+        - --character-set-server=utf8
+        - --collation-server=utf8_general_ci
+        - --innodb-log-file-size=512MB
+        env:
+        - name: MARIADB_DATABASE
+          value: {{ .Values.environment.MARIADB_DATABASE }}
+        - name: MARIADB_USER
+          value: {{ .values.environment.MARIADB_USER }}
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+        volumeMounts:
+        - name: mariadb-storage
+          mountPath: /var/lib/mysql

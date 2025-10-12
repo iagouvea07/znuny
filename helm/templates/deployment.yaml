@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+spec:
+  replicas: {{ .Values.deployment.replicas}}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.name }}
+    spec:
+      volumes:
+      - name: znuny-articles
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistentVolumeClaim.name }}
+      containers:
+      - name: {{ .Values.deployment.name }}
+        image: {{ .Values.deployment.image }}
+        port:
+        - containerPort: {{ .Values.deployment.port }}
+        env:
+        - name: MARIADB_HOST
+          value: {{ .Values.service.name }}
+        - name: MARIADB_DATABASE
+          value: {{ .Values.environment.MARIADB_DATABASE }}
+        - name: MARIADB_USER
+          value: {{ .Values.environment.MARIADB_USER }}
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+        volumeMounts:
+        - name: znuny-articles
+          mountPath: /opt/znuny/var/articles
