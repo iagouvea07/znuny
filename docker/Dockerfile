@@ -8,7 +8,7 @@ ARG BASEDIR_KERNEL=${BASEDIR}/Kernel
 
 EXPOSE 80
 
-COPY ../znuny ${BASEDIR}
+COPY ../src ${BASEDIR}
 WORKDIR ${BASEDIR}
 
 RUN apt update && \
