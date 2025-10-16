@@ -6,7 +6,7 @@ environment:
 deployment:
   name: znuny-app
   replicas: 1
-  image: iagouvea/znuny:7
+  image: iagouvea/znuny:7-otlp
   port: 80
 
 statefulSet:

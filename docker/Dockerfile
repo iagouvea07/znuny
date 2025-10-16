@@ -32,4 +32,8 @@ RUN crontab ${BASEDIR_CRON}/znuny_daemon
 COPY ../config/httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ../config/znuny.conf /usr/local/apache2/conf/extra/znuny.conf
 
+COPY ../config/opentelemetry_module.conf /usr/local/apache2/conf/opentelemetry_module.conf
+COPY ../opentelemetry /opt/opentelemetry
+RUN bash /opt/opentelemetry/install.sh
+
 CMD ["httpd-foreground"]
