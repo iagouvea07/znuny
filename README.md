@@ -28,3 +28,9 @@ Before deploy this application, is recommended build your docker image first, pu
 ```
 
 This project will be supported with the aim of improve this image for support the most several scenarios
+
+
+
+### Release notes
+
+- 19-10-2025: Added opentelemetry module to Apache2 HTTP Server for send traces to opentelemetry collector  

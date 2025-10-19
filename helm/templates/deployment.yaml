@@ -13,6 +13,20 @@ spec:
       labels:
         app: {{ .Values.deployment.name }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - control-plane
+      tolerations:
+      - effect: NoSchedule
+        key: controlplane
+        operator: Equal
+        value: "true"
       volumes:
       - name: znuny-articles
         persistentVolumeClaim:

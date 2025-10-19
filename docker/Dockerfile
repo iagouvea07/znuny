@@ -1,5 +1,4 @@
 FROM httpd:2.4.65
-
 ARG BASEDIR=/opt/znuny
 ARG BASEDIR_SCRIPTS=${BASEDIR}/scripts
 ARG BASEDIR_CRON=${BASEDIR}/var/cron
