@@ -1,7 +1,6 @@
 FROM httpd:2.4.65
 ARG BASEDIR=/opt/znuny
 ARG BASEDIR_SCRIPTS=${BASEDIR}/scripts
-ARG BASEDIR_CRON=${BASEDIR}/var/cron
 ARG BASEDIR_BIN=${BASEDIR}/bin
 ARG BASEDIR_KERNEL=${BASEDIR}/Kernel
 
@@ -11,7 +10,7 @@ COPY ../src ${BASEDIR}
 WORKDIR ${BASEDIR}
 
 RUN apt update &&                                                                               \
-    apt -y install cron libapache2-mod-perl2 libdbd-mysql-perl libtimedate-perl                 \
+    apt -y install libapache2-mod-perl2 libdbd-mysql-perl libtimedate-perl                 \
     libnet-ldap-perl libio-socket-ssl-perl libpdf-api2-perl libyaml-libyaml-perl                \
     libsoap-lite-perl libtext-csv-xs-perl libjson-xs-perl libapache-dbi-perl                    \
     libxml-libxml-perl libxml-libxslt-perl libyaml-perl libcrypt-eksblowfish-perl               \
@@ -22,11 +21,9 @@ RUN apt update &&                                                               
     && rm -rf /var/lib/apt/lists/*
 
 COPY ../config/Config.pm Kernel/Config.pm 
-COPY ../config/znuny_daemon.conf ${BASEDIR_CRON}/znuny_daemon
 
 RUN useradd -d ${BASEDIR} -g www-data -s /bin/bash znuny     
 RUN chown -R znuny:www-data ${BASEDIR} /usr/local/apache2   
-RUN crontab ${BASEDIR_CRON}/znuny_daemon 
 
 COPY ../config/httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ../config/znuny.conf /usr/local/apache2/conf/extra/znuny.conf

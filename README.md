@@ -34,3 +34,4 @@ This project will be supported with the aim of improve this image for support th
 ### Release notes
 
 - 19-10-2025: Added opentelemetry module to Apache2 HTTP Server for send traces to opentelemetry collector  
+- 31-01-2026: Create an Cronjob object to execute Daemon's Znuny

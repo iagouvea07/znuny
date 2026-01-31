@@ -43,3 +43,7 @@ ingress:
   name: znuny-ingress
   host: znuny.local
   ingressClass: traefik
+
+cronjob:
+  name: znuny-daemon
+  schedule: "* * * * *"

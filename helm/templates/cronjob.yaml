@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.cronjob.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  schedule: "{{ .Values.cronjob.schedule }}"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{ .Values.deployment.name }}
+            image: {{ .Values.deployment.image }}
+            ports:
+            - containerPort: {{ .Values.deployment.port }}
+            env:
+            - name: MARIADB_HOST
+              value: "{{ .Values.environment.MARIADB_HOST}}.{{ .Values.namespace }}.svc.cluster.local"
+            - name: MARIADB_DATABASE
+              value: {{ .Values.environment.MARIADB_DATABASE }}
+            - name: MARIADB_USER
+              value: {{ .Values.environment.MARIADB_USER }}
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: password
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 33
+            command:
+            - sh
+            - -c
+            - |
+                /opt/znuny/bin/znuny.Daemon.pl start
+                sleep 1d
+          restartPolicy: Never
