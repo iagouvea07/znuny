@@ -27,5 +27,7 @@ jobs:
       - name: Build And Push
         uses: docker/build-push-action@v6
         with:
+          file: docker/Dockerfile
+          context: .
           push: true
           tags: iagouvea/znuny:7
