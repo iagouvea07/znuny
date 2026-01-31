@@ -1,2 +1,3 @@
 values.local.yaml
 helm/values.local.yaml
+reqs.sh

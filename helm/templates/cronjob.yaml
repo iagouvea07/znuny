@@ -10,23 +10,36 @@ spec:
     spec:
       template:
         spec:
+          initContainers:
+          - name: init
+            image: {{ .Values.deployment.image }}
+            ports:
+            - containerPort: {{ .Values.deployment.port }}
+            envFrom:
+            - secretRef:
+                name: {{ .Values.secret.name }}
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 33
+            command:
+            - sh
+            - -c
+            - |
+              until /opt/znuny/bin/otrs.Console.pl Maint::Database::Check; do
+                echo "Database maintenance check failed, retrying..."
+                sleep 5
+              done
+
+              echo "exiting..."
+              sleep 20
           containers:
           - name: {{ .Values.deployment.name }}
             image: {{ .Values.deployment.image }}
             ports:
             - containerPort: {{ .Values.deployment.port }}
-            env:
-            - name: MARIADB_HOST
-              value: "{{ .Values.environment.MARIADB_HOST}}.{{ .Values.namespace }}.svc.cluster.local"
-            - name: MARIADB_DATABASE
-              value: {{ .Values.environment.MARIADB_DATABASE }}
-            - name: MARIADB_USER
-              value: {{ .Values.environment.MARIADB_USER }}
-            - name: MARIADB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: password
+            envFrom:
+            - secretRef:
+                name: {{ .Values.secret.name }}
             securityContext:
               runAsUser: 1000
               runAsGroup: 33
