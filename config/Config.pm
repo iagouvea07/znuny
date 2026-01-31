@@ -20,7 +20,7 @@ sub Load {
 
     $Self->{Home} = '/opt/znuny';
 
-    $Self->{'Frontend::NotifyModule'}->{'800-Daemon-Check'} = undef;
+    $Self->{'Frontend::NotifyModule'}->{'800-Daemon-Check'} = 0;
 
     return 1;
 }
