@@ -3,7 +3,7 @@ namespace: default
 environment:
   MARIADB_DATABASE: znuny
   MARIADB_USER: znuny
-  MARIADB_HOST: znuny-db-svc.znuny.svc.cluster.local
+  MARIADB_HOST: znuny-db-svc
 
 deployment:
   name: znuny-app
@@ -39,7 +39,7 @@ persistentVolumeClaim:
     storageClass: persistent-storage
 
 ingress:
-  enabled: false
+  enabled: true
   name: znuny-ingress
   host: znuny.local
-  ingressClass: nginx
+  ingressClass: traefik

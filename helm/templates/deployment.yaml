@@ -24,7 +24,7 @@ spec:
         - containerPort: {{ .Values.deployment.port }}
         env:
         - name: MARIADB_HOST
-          value: {{ .Values.environment.MARIADB_HOST}}
+          value: "{{ .Values.environment.MARIADB_HOST}}.{{ .Values.namespace }}.svc.cluster.local"
         - name: MARIADB_DATABASE
           value: {{ .Values.environment.MARIADB_DATABASE }}
         - name: MARIADB_USER
