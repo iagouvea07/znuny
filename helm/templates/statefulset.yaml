@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ .Values.statefulSet.name }}
-  namespace: znuny
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: {{ .Values.statefulSet.replicas }}
   selector:

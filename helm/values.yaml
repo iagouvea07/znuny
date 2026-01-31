@@ -1,3 +1,5 @@
+namespace: default
+
 environment:
   MARIADB_DATABASE: znuny
   MARIADB_USER: znuny
@@ -37,7 +39,7 @@ persistentVolumeClaim:
     storageClass: persistent-storage
 
 ingress:
-  enabled: true
+  enabled: false
   name: znuny-ingress
   host: znuny.local
   ingressClass: nginx
