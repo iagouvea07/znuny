@@ -34,5 +34,5 @@ jobs:
           file: docker/Dockerfile
           context: .
           push: true
-          tags: iagouvea/znuny:7
+          tags: iagouvea/znuny:7.1
           platforms: linux/arm64
