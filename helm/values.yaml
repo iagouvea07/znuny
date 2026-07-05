@@ -39,10 +39,18 @@ persistentVolumeClaim:
     storageClass: persistent-storage
 
 ingress:
-  enabled: true
+  enabled: false
   name: znuny-ingress
   host: znuny.local
   ingressClass: traefik
+
+gateway:
+  enabled: true
+  name: gateway
+  namespace: kgateway-system
+  hostname: znuny.local
+  httproute:
+    name: znuny-route
 
 cronjob:
   name: znuny-daemon
