@@ -10,7 +10,7 @@ COPY ../src ${BASEDIR}
 WORKDIR ${BASEDIR}
 
 RUN apt update &&                                                                               \
-    apt -y install libapache2-mod-perl2 libdbd-mysql-perl libtimedate-perl                 \
+    apt -y install libapache2-mod-perl2 libdbd-mysql-perl libtimedate-perl                      \
     libnet-ldap-perl libio-socket-ssl-perl libpdf-api2-perl libyaml-libyaml-perl                \
     libsoap-lite-perl libtext-csv-xs-perl libjson-xs-perl libapache-dbi-perl                    \
     libxml-libxml-perl libxml-libxslt-perl libyaml-perl libcrypt-eksblowfish-perl               \
@@ -27,9 +27,5 @@ RUN chown -R znuny:www-data ${BASEDIR} /usr/local/apache2
 
 COPY ../config/httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY ../config/znuny.conf /usr/local/apache2/conf/extra/znuny.conf
-
-COPY ../config/opentelemetry_module.conf /usr/local/apache2/conf/opentelemetry_module.conf
-COPY ../opentelemetry /opt/opentelemetry
-RUN bash /opt/opentelemetry/install.sh
 
 CMD ["httpd-foreground"]
