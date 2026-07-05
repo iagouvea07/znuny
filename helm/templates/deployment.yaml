@@ -15,8 +15,12 @@ spec:
     spec:
       volumes:
       - name: znuny-articles
+        {{- if eq .Values.statefulSet.isPersistent true }} 
         persistentVolumeClaim:
           claimName: {{ .Values.persistentVolumeClaim.app.name }}
+        {{- else }}
+        emptyDir: {}
+        {{- end}}
       containers:
       - name: {{ .Values.deployment.name }}
         image: {{ .Values.deployment.image }}

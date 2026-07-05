@@ -15,8 +15,12 @@ spec:
     spec:
       volumes:
       - name: mariadb-storage
+        {{- if eq .Values.statefulSet.isPersistent true }} 
         persistentVolumeClaim:
           claimName: {{ .Values.persistentVolumeClaim.db.name }}
+        {{- else }}
+        emptyDir: {}
+        {{- end}}
       containers:
       - name: {{ .Values.statefulSet.name }}
         image: {{ .Values.statefulSet.image }}

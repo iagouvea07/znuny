@@ -5,12 +5,14 @@ deployment:
   replicas: 1
   image: iagouvea/znuny:7
   port: 80
+  isPersistent: false
 
 statefulSet:
   name: znuny-db
   replicas: 1
   image: mariadb:10.6
   port: 3306
+  isPersistent: false
 
 secret:
   name: znuny-db-access
