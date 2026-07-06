@@ -5,14 +5,14 @@ deployment:
   replicas: 1
   image: iagouvea/znuny:7.1
   port: 80
-  isPersistent: false
+  isPersistent: true
 
 statefulSet:
   name: znuny-db
   replicas: 1
   image: mariadb:10.6
   port: 3306
-  isPersistent: false
+  isPersistent: true
 
 secret:
   name: znuny-db-access
@@ -34,11 +34,11 @@ service:
 persistentVolumeClaim:
   app:
     name: znuny-articles
-    storageClass: persistent-storage
+    storageClass: local-path
     
   db:
     name: mariadb-storage
-    storageClass: persistent-storage
+    storageClass: local-path
 
 ingress:
   enabled: false

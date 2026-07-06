@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.persistentVolumeClaim.app.name }}
   namespace: {{ .Values.namespace }}
 spec:
-  storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
+  storageClassName: {{ .Values.persistentVolumeClaim.app.storageClass }}
   accessModes:
   - ReadWriteOnce
   resources:
@@ -17,7 +17,7 @@ metadata:
   name: {{ .Values.persistentVolumeClaim.db.name }}
   namespace: {{ .Values.namespace }}
 spec:
-  storageClassName: {{ .Values.persistentVolumeClaim.storageClass }}
+  storageClassName: {{ .Values.persistentVolumeClaim.db.storageClass }}
   accessModes:
   - ReadWriteOnce
   resources:

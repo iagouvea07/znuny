@@ -22,4 +22,6 @@ spec:
       kind: Service
       name: {{ .Values.service.app.name }}
       port: {{ .Values.service.app.port }}
+    timeouts:
+      request: 120s
 {{- end }}
